@@ -167,6 +167,11 @@ std::vector<T> rbx::interface_t::get_children()
 	if (count == 0 || count > 2048)
 		return {};
 
+	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx count=%llu\x1b[0m\n",
+		(unsigned long long)begin,
+		(unsigned long long)end,
+		(unsigned long long)count);
+
 	std::vector<T> children;
 	children.reserve(static_cast<size_t>(count));
 
