@@ -273,6 +273,34 @@ static int main_impl()
 	printf("\x1b[38;5;214m   [DEBUG] local_char:    0x%llx\x1b[0m\n", (unsigned long long)game::local_character.address);
 	printf("\x1b[38;5;214m   [DEBUG] =======================\x1b[0m\n");
 
+	// === DIAGNÓSTICO: scan del inline vector de Players ===
+	{
+		std::uint64_t pa = game::players.address;
+		printf("\x1b[38;5;240m[SCAN PLAYERS] scanning 0x%llx\x1b[0m\n", (unsigned long long)pa);
+		for (std::uint64_t off = 0x60; off < 0x300; off += 0x8)
+		{
+			std::uint64_t v1 = memory->read<std::uint64_t>(pa + off);
+			std::uint64_t v2 = memory->read<std::uint64_t>(pa + off + 0x8);
+
+			if (!v1 || !v2) continue;
+
+			std::uint64_t b = (v1 < v2) ? v1 : v2;
+			std::uint64_t e = (v1 < v2) ? v2 : v1;
+			std::uint64_t count = (e - b) / 16;
+
+			if (count > 0 && count <= 50)
+			{
+				printf("\x1b[38;5;240m[SCAN PLAYERS] off=0x%llx v1=0x%llx v2=0x%llx count=%llu (begin=0x%llx end=0x%llx)\x1b[0m\n",
+					(unsigned long long)off,
+					(unsigned long long)v1,
+					(unsigned long long)v2,
+					(unsigned long long)count,
+					(unsigned long long)b,
+					(unsigned long long)e);
+			}
+		}
+	}
+
 	// Now all game pointers are valid - start subsystems that depend on them
 	std::thread(cache::run).detach();
 	std::thread(jailbreak::run).detach();
