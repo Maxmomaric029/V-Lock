@@ -8,6 +8,9 @@
 
 namespace rbx
 {
+	// Dynamically discovered ChildrenStart offset (0 until found)
+	inline std::uint64_t g_children_start_offset{ 0 };
+
 	struct instance_t;
 	struct primitive_t;
 	struct model_instance_t;
@@ -27,6 +30,9 @@ namespace rbx
 		std::string get_name();
 		std::string get_class_name();
 	};
+
+	// Scan instance memory for the first valid child pointer (dynamic ChildrenStart discovery)
+	std::uint64_t find_children_start(std::uint64_t instance_addr);
 
 	struct interface_t
 	{
@@ -120,11 +126,16 @@ std::vector<T> rbx::interface_t::get_children()
 {
 	rbx::instance_t* base = static_cast<rbx::instance_t*>(this);
 
+	// Use dynamically discovered offset if available, otherwise fall back to hardcoded
+	std::uint64_t cs = g_children_start_offset;
+	if (cs == 0)
+		cs = Offsets::Instance::ChildrenStart;
+
 	// Read both pointers from the inline vector struct
 	// Roblox vector layout may have [end, begin] instead of [begin, end]
 	// So we read both values and use min() as begin, max() as end
-	std::uint64_t val1 = memory->read<std::uint64_t>(base->address + Offsets::Instance::ChildrenStart);
-	std::uint64_t val2 = memory->read<std::uint64_t>(base->address + Offsets::Instance::ChildrenStart + Offsets::Instance::ChildrenEnd);
+	std::uint64_t val1 = memory->read<std::uint64_t>(base->address + cs);
+	std::uint64_t val2 = memory->read<std::uint64_t>(base->address + cs + 8);
 
 	// Validate: both values must be in heap range (0x001... to 0x7FE...)
 	// Module addresses (0x7FFx...) would produce module-address entries, not instances.

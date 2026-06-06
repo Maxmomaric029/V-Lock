@@ -2,6 +2,30 @@
 #include <native/offsets.h>
 #include <runtime/memory.h>
 #include <session/game.h>
+#include <cstdio>
+
+// Scan instance memory from 0x60 to 0x100 to find the first valid child pointer
+std::uint64_t rbx::find_children_start(std::uint64_t instance_addr)
+{
+	for (std::uint64_t offset = 0x60; offset < 0x100; offset += 0x8)
+	{
+		std::uint64_t val = memory->read<std::uint64_t>(instance_addr + offset);
+		if (memory->is_valid_instance_address(val))
+		{
+			// Confirm the pointed-to instance has a valid Name string pointer
+			std::uint64_t name_ptr = memory->read<std::uint64_t>(val + Offsets::Instance::Name);
+			if (name_ptr && memory->is_valid_instance_address(name_ptr))
+			{
+				printf("\x1b[38;5;118m   [DEBUG] Found ChildrenStart at offset 0x%llx (child=0x%llx)\x1b[0m\n",
+					(unsigned long long)offset, (unsigned long long)val);
+				return offset;
+			}
+		}
+	}
+	printf("\x1b[38;5;214m   [WARN] Could not find ChildrenStart dynamically, using fallback 0x%llx\x1b[0m\n",
+		(unsigned long long)Offsets::Instance::ChildrenStart);
+	return 0;
+}
 
 std::string rbx::nameable_t::get_name()
 {

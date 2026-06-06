@@ -157,6 +157,14 @@ static int main_impl()
 			game::datamodel = rbx::instance_t(real_datamodel);
 		}
 
+		// Discover ChildrenStart offset dynamically (only once)
+		if (rbx::g_children_start_offset == 0)
+		{
+			std::uint64_t found = rbx::find_children_start(real_datamodel);
+			if (found != 0)
+				rbx::g_children_start_offset = found;
+		}
+
 		std::uint64_t workspace_addr = memory->read<std::uint64_t>(real_datamodel + Offsets::DataModel::Workspace);
 		if (!workspace_addr || workspace_addr > 0x7FFFFFFFFFFFFFFF)
 		{
