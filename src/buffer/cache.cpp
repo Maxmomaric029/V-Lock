@@ -166,18 +166,8 @@ void cache::run()
 			std::uint64_t world_addr = memory->read<std::uint64_t>(game::workspace.address + Offsets::Workspace::World);
 			if (world_addr)
 			{
-			// World::Primitives +0x280 is a POINTER to a container
-			// container + 0x0 = prim_begin, container + 0x8 = prim_end
-			std::uint64_t prim_container = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives);
-			std::uint64_t prim_start = 0, prim_end = 0;
-			if (memory->is_valid_instance_address(prim_container)) {
-				prim_start = memory->read<std::uint64_t>(prim_container + 0);
-				prim_end   = memory->read<std::uint64_t>(prim_container + Offsets::Instance::ChildrenEnd);
-			} else {
-				// Fallback: inline vector at +0x280 / +0x288
-				prim_start = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives);
-				prim_end   = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives + 0x8);
-			}
+				std::uint64_t prim_start = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives);
+				std::uint64_t prim_end   = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives + 0x8);
 			
 			if (prim_start && prim_end && prim_end > prim_start)
 				{
