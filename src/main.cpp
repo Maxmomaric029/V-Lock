@@ -157,14 +157,6 @@ static int main_impl()
 			game::datamodel = rbx::instance_t(real_datamodel);
 		}
 
-		// Discover ChildrenStart offset dynamically (only once)
-		if (rbx::g_children_start_offset == 0)
-		{
-			std::uint64_t found = rbx::find_children_start(real_datamodel);
-			if (found != 0)
-				rbx::g_children_start_offset = found;
-		}
-
 		std::uint64_t workspace_addr = memory->read<std::uint64_t>(real_datamodel + Offsets::DataModel::Workspace);
 		if (!workspace_addr || workspace_addr > 0x7FFFFFFFFFFFFFFF)
 		{
@@ -227,13 +219,30 @@ static int main_impl()
 					game::local_player = { local_player_addr };
 				}
 
-				// Resolve local character (may be 0 until player spawns - cache thread updates it)
-				rbx::player_t local_player_obj{ local_player_addr };
-				auto char_addr = local_player_obj.get_model_instance().address;
-				if (memory->is_valid_instance_address(char_addr))
+				// Wait for local character to spawn (ModelInstance)
+				printf("\x1b[38;5;240mc\x1b[0m"); // gray c = waiting for character
+				fflush(stdout);
+				std::uint64_t char_addr = 0;
+				for (int retries = 0; retries < 60 && char_addr == 0; ++retries)
+				{
+					rbx::player_t local_player_obj{ local_player_addr };
+					char_addr = local_player_obj.get_model_instance().address;
+					if (!memory->is_valid_instance_address(char_addr))
+					{
+						char_addr = 0;
+						printf("\x1b[38;5;240mc\x1b[0m");
+						fflush(stdout);
+						std::this_thread::sleep_for(std::chrono::milliseconds(500));
+					}
+				}
+				if (char_addr != 0)
 				{
 					std::unique_lock lock(game::game_state_mtx);
 					game::local_character = { char_addr };
+				}
+				else
+				{
+					printf("\x1b[38;5;214m[!] Character didn't spawn, continuing anyway\x1b[0m");
 				}
 			}
 			printf("\x1b[38;5;118m.\x1b[0m"); // bright dot = Players found

@@ -8,9 +8,6 @@
 
 namespace rbx
 {
-	// Dynamically discovered ChildrenStart offset (0 until found)
-	inline std::uint64_t g_children_start_offset{ 0 };
-
 	struct instance_t;
 	struct primitive_t;
 	struct model_instance_t;
@@ -30,9 +27,6 @@ namespace rbx
 		std::string get_name();
 		std::string get_class_name();
 	};
-
-	// Scan instance memory for the first valid child pointer (dynamic ChildrenStart discovery)
-	std::uint64_t find_children_start(std::uint64_t instance_addr);
 
 	struct interface_t
 	{
@@ -125,28 +119,50 @@ template <typename T>
 std::vector<T> rbx::interface_t::get_children()
 {
 	rbx::instance_t* base = static_cast<rbx::instance_t*>(this);
-
-	// Use dynamically discovered offset if available, otherwise fall back to hardcoded
-	std::uint64_t cs = g_children_start_offset;
-	if (cs == 0)
-		cs = Offsets::Instance::ChildrenStart;
-
-	// Read both pointers from the inline vector struct
-	// Roblox vector layout may have [end, begin] instead of [begin, end]
-	// So we read both values and use min() as begin, max() as end
-	std::uint64_t val1 = memory->read<std::uint64_t>(base->address + cs);
-	std::uint64_t val2 = memory->read<std::uint64_t>(base->address + cs + 8);
-
-	// Validate: both values must be in heap range (0x001... to 0x7FE...)
-	// Module addresses (0x7FFx...) would produce module-address entries, not instances.
-	if (!memory->is_valid_instance_address(val1) || !memory->is_valid_instance_address(val2))
+	std::uint64_t addr = base->address;
+	if (!addr)
 		return {};
 
-	// Determine begin (smaller) and end (larger) regardless of field order
+	// Scan this specific instance for its children vector offset (0x60 to 0x100)
+	// Different instance classes can have the vector at different offsets.
+	std::uint64_t cs = 0;
+	for (std::uint64_t off = 0x60; off < 0x100; off += 0x8)
+	{
+		std::uint64_t b = memory->read<std::uint64_t>(addr + off);
+		std::uint64_t e = memory->read<std::uint64_t>(addr + off + 8);
+
+		// Both must be valid heap addresses, and begin must be <= end
+		if (memory->is_valid_instance_address(b) && memory->is_valid_instance_address(e) && b <= e)
+		{
+			std::uint64_t count = (e - b) / sizeof(std::uint64_t);
+			if (count > 0 && count <= 4096)
+			{
+				// Confirm first child looks like a real instance (has a valid Name)
+				std::uint64_t first = memory->read<std::uint64_t>(b);
+				if (memory->is_valid_instance_address(first))
+				{
+					std::uint64_t name_ptr = memory->read<std::uint64_t>(first + Offsets::Instance::Name);
+					if (name_ptr && memory->is_valid_instance_address(name_ptr))
+					{
+						cs = off;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	if (cs == 0)
+		return {};
+
+	// Read begin/end from the discovered offset
+	std::uint64_t val1 = memory->read<std::uint64_t>(addr + cs);
+	std::uint64_t val2 = memory->read<std::uint64_t>(addr + cs + 8);
+
+	// Safety: use min/max in case of [end, begin] layout
 	std::uint64_t begin = (val1 < val2) ? val1 : val2;
 	std::uint64_t end   = (val1 < val2) ? val2 : val1;
 
-	// Sanity check: cap at a reasonable max (4096 for general instances)
 	std::uint64_t count = (end - begin) / sizeof(std::uint64_t);
 	if (count == 0 || count > 4096)
 		return {};
@@ -154,12 +170,10 @@ std::vector<T> rbx::interface_t::get_children()
 	std::vector<T> children;
 	children.reserve(static_cast<size_t>(count));
 
-	// Defense-in-depth: iteration counter prevents infinite loop if begin/end are corrupted
 	std::uint64_t iter_count = 0;
 	for (std::uint64_t ptr = begin; ptr < end && iter_count < 4096; ptr += sizeof(std::uint64_t), ++iter_count)
 	{
 		std::uint64_t child_addr = memory->read<std::uint64_t>(ptr);
-		// Filter: only heap addresses are valid instance addresses
 		if (memory->is_valid_instance_address(child_addr))
 			children.emplace_back(child_addr);
 	}
