@@ -330,7 +330,7 @@ std::int32_t main()
 	std::thread(misc::run).detach();
 
 	// Gravity / Tickrate controller (uses World::Gravity from new offsets)
-	std::thread([&]()
+	std::thread([]()
 		{
 			for (;;)
 			{
@@ -339,8 +339,17 @@ std::int32_t main()
 				if (!settings::expl::tickrate)
 					continue;
 
-				auto world = memory->read<uintptr_t>(game::workspace.address + Offsets::Workspace::World);
-				if (world)
+				std::uint64_t ws_addr = 0;
+				{
+					std::shared_lock slock(game::game_state_mtx);
+					ws_addr = game::workspace.address;
+				}
+
+				if (!memory->is_valid_instance_address(ws_addr))
+					continue;
+
+				auto world = memory->read<uintptr_t>(ws_addr + Offsets::Workspace::World);
+				if (memory->is_valid_instance_address(world))
 					memory->write<float>(world + Offsets::World::Gravity, settings::expl::tickrate_amount * 4);
 			}
 		}

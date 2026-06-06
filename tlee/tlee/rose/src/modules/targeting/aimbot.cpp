@@ -24,8 +24,9 @@ static bool is_same_team(cache::entity_t& player)
 	std::uint64_t local_team  = cache::cached_local_player.team_address;
 	std::uint64_t target_team = player.team_address;
 
-	if (local_team == 0 || target_team == 0)
-		return true;
+	// Validate addresses before reading — null team means no team, not same team
+	if (!memory->is_valid_instance_address(local_team) || !memory->is_valid_instance_address(target_team))
+		return false;
 
 	if (local_team == target_team)
 		return true;
@@ -100,7 +101,10 @@ static bool is_player_knocked(cache::entity_t& player)
 static math::vector3 normalize(const math::vector3& vec)
 {
 	float length = std::sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
-	return (length != 0) ? math::vector3{ vec.x / length, vec.y / length, vec.z / length } : vec;
+	// Minimum threshold prevents division by zero + invalid downstream matrix
+	if (length < 0.001f)
+		return { 0.0f, 1.0f, 0.0f };  // Safe up vector
+	return math::vector3{ vec.x / length, vec.y / length, vec.z / length };
 }
 
 static math::vector3 cross_product(const math::vector3& vec1, const math::vector3& vec2)

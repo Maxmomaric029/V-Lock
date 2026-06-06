@@ -143,7 +143,9 @@ std::vector<T> rbx::interface_t::get_children()
 	std::vector<T> children;
 	children.reserve(static_cast<size_t>(count));
 
-	for (std::uint64_t ptr = begin; ptr < end; ptr += sizeof(std::uint64_t))
+	// Defense-in-depth: iteration counter prevents infinite loop if begin/end are corrupted
+	std::uint64_t iter_count = 0;
+	for (std::uint64_t ptr = begin; ptr < end && iter_count < 4096; ptr += sizeof(std::uint64_t), ++iter_count)
 	{
 		std::uint64_t child_addr = memory->read<std::uint64_t>(ptr);
 		// Filter: only heap addresses are valid instance addresses
