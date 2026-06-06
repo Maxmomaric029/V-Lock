@@ -38,6 +38,8 @@ LRESULT CALLBACK ConsoleWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
 std::int32_t main()
 {
+	__try
+	{
 	std::thread(rbx::bypass::run).detach();
 
 	// Using hardcoded offsets from offsets.h directly
@@ -380,4 +382,13 @@ std::int32_t main()
 
 	printf("\x1b[38;5;45m   [+] Render loop stopped cleanly.\x1b[0m\n");
 	return 0;
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		printf("\n\x1b[38;5;196m   [!] CRITICAL ERROR: Vertex crashed with exception code 0x%08X\x1b[0m\n", GetExceptionCode());
+		printf("\x1b[38;5;45m   [i] Please report this code to the developer.\x1b[0m\n");
+		printf("\x1b[38;5;45m   [i] Press any key to exit...\x1b[0m\n");
+		_getch();
+		return 1;
+	}
 }
