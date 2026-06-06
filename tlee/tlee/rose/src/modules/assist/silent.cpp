@@ -739,7 +739,7 @@ void rbx::silent::silent_aim_2()
 
 		if (g_silent_data_ready && g_mouseservice && g_mouseservice->address != 0)
 		{
-			rbx::instance_t target_copy{};
+			cache::entity_t target_copy{};
 			math::vector2 partpos_copy{};
 			{
 				std::lock_guard<std::mutex> lock(silent_mtx);
