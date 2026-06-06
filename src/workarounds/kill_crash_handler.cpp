@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <string>
+#include <cstdio>
 #include "kill_crash_handler.h"
 
 void rbx::bypass::kill_other_crash_handlers()
@@ -41,12 +42,20 @@ void rbx::bypass::kill_other_crash_handlers()
 
 void rbx::bypass::run()
 {
+	// First call outside __try to ensure initial cleanup
 	kill_other_crash_handlers();
 
 	for (;;)
 	{
+		__try
+		{
+			kill_other_crash_handlers();
+		}
+		__except (EXCEPTION_EXECUTE_HANDLER)
+		{
+			printf("\x1b[38;5;214m   [!] Bypass thread recovered from exception\x1b[0m\n");
+		}
 		Sleep(1000);
-		kill_other_crash_handlers();
 	}
 }
 
