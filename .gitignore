@@ -1,0 +1,26 @@
+# Build outputs
+build/
+artifacts/
+
+# Visual Studio
+.vs/
+*.sdf
+*.opensdf
+*.opendb
+*.suo
+*.user
+*.log
+
+# Debug symbols
+*.pdb
+*.obj
+*.ipdb
+*.iobj
+
+# Temp files
+*.recipe
+temp_update_offsets.txt
+
+# Windows
+Thumbs.db
+desktop.ini

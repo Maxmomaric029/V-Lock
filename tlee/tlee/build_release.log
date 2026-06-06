@@ -1,0 +1,62 @@
+
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory. [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  Assembling src\memory\luck.asm...
+  clipper.engine.cpp
+  clipper.offset.cpp
+  clipper.rectclip.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  cache.cpp
+  typing_check.cpp
+  config.cpp
+  aimbot.cpp
+  esp.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(132,39): warning C4305: 'initializing': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(186,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(196,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(198,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(243,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(253,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(255,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(472,54): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(476,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  fly.cpp
+  freezeplayer.cpp
+  hitbox_expander.cpp
+  walkspeed.cpp
+  dex_explorer.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(539,173): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(540,170): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  silent.cpp
+  kill_crash_handler.cpp
+  utils.cpp
+  antidebug.cpp
+  keyauth_init.cpp
+  rescan.cpp
+  teleport.cpp
+  main.cpp
+  memory.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(23,18): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(10,10): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(30,9): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(95,108): warning C4267: 'argument': conversion from 'size_t' to 'ULONG', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  notifications.cpp
+  render.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render_helpers.h(319,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  (compiling source file 'src/render/render.cpp')
+  
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(229,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(465,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1194,174): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1196,171): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  sdk.cpp
+LINK : fatal error LNK1104: cannot open file 'atls.lib' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]

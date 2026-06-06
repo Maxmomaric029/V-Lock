@@ -1,0 +1,227 @@
+Build started 4/29/2026 11:55:52 PM.
+Logging verbosity is set to: Normal.
+Project "C:\Users\zzgam\Downloads\tlee\rose.sln" on node 1 (Rebuild target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "Debug|x64".
+Project "C:\Users\zzgam\Downloads\tlee\rose.sln" (1) is building "C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (2) on node 1 (Rebuild target(s)).
+_PrepareForClean:
+  Deleting file "C:\Users\zzgam\Downloads\tlee\artifacts\rose.tlog\rose.lastbuildstate".
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory. [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+InitializeBuildStatus:
+  Touching "C:\Users\zzgam\Downloads\tlee\artifacts\rose.tlog\unsuccessfulbuild".
+_MASM:
+  Assembling src\memory\luck.asm...
+  cmd.exe /C "C:\Users\zzgam\AppData\Local\Temp\tmpf7300d65acc3437c8d8c940d4480d338.cmd"
+  ml64.exe /c /nologo /Zi /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\luck.obj" /W3 /errorReport:prompt  /Tasrc\memory\luck.asm
+ComputeStdModulesCompileInputs:
+  Reading library manifest file 'C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\modules\modules.json' which provides data for library 'microsoft/STL'.
+  Adding module source 'C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\modules\std.ixx' from library 'microsoft/STL' to be built with this project.
+  Adding module source 'C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\modules\std.compat.ixx' from library 'microsoft/STL' to be built with this project.
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\clipper.engine.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\Clipper2Lib\src\clipper.engine.cpp
+  clipper.engine.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\clipper.offset.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\Clipper2Lib\src\clipper.offset.cpp
+  clipper.offset.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\clipper.rectclip.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\Clipper2Lib\src\clipper.rectclip.cpp
+  clipper.rectclip.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui.cpp
+  imgui.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_demo.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_demo.cpp
+  imgui_demo.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_draw.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_draw.cpp
+  imgui_draw.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_impl_dx11.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_impl_dx11.cpp
+  imgui_impl_dx11.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_impl_win32.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_impl_win32.cpp
+  imgui_impl_win32.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_tables.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_tables.cpp
+  imgui_tables.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\imgui_widgets.pdb" /external:W3 /Gd /TP /FC /errorReport:queue ext\imgui\imgui_widgets.cpp
+  imgui_widgets.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\cache.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\cache\cache.cpp
+  cache.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\typing_check.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\check\typing_check.cpp
+  typing_check.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\config.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\config\config.cpp
+  config.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\aimbot.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\aimbot\aimbot.cpp
+  aimbot.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\esp.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\esp\esp.cpp
+  esp.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(132,39): warning C4305: 'initializing': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(186,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(196,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(198,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(243,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(253,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(255,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(472,54): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(476,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\fly.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\expl\fly.cpp
+  fly.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\freezeplayer.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\expl\freezeplayer.cpp
+  freezeplayer.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\hitbox_expander.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\expl\hitbox_expander.cpp
+  hitbox_expander.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\walkspeed.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\expl\walkspeed.cpp
+  walkspeed.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\dex_explorer.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\explorer\dex_explorer.cpp
+  dex_explorer.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(539,173): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(540,170): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\silent.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\features\silent\silent.cpp
+  silent.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\kill_crash_handler.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\bypass\kill_crash_handler.cpp
+  kill_crash_handler.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\utils.pdb" /external:W3 /Gd /TP /FC /errorReport:queue keyauth\utils.cpp
+  utils.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\antidebug.pdb" /external:W3 /Gd /TP /FC /errorReport:queue protection\protection\antidebug.cpp
+  antidebug.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\keyauth_init.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\auth\keyauth_init.cpp
+  keyauth_init.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\rescan.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\game\rescan.cpp
+  rescan.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\teleport.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\game\teleport.cpp
+  teleport.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\main.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\main.cpp
+  main.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\memory.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\memory\memory.cpp
+  memory.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(23,18): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(10,10): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(30,9): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(95,108): warning C4267: 'argument': conversion from 'size_t' to 'ULONG', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\notifications.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\render\notifications.cpp
+  notifications.cpp
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\render.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\render\render.cpp
+  render.cpp
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render_helpers.h(319,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  (compiling source file 'src/render/render.cpp')
+  
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(229,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(465,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1194,174): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1196,171): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\CL.exe /c /Zi /JMC /nologo /W3 /WX- /diagnostics:column /sdl /MP /Od /D _DEBUG /D _CONSOLE /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"C:\Users\zzgam\Downloads\tlee\artifacts\\" /Fd"C:\Users\zzgam\Downloads\tlee\artifacts\sdk.pdb" /external:W3 /Gd /TP /FC /errorReport:queue src\sdk\sdk.cpp
+  sdk.cpp
+Link:
+  C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\zzgam\Downloads\tlee\build\rose.exe" /INCREMENTAL /ILK:"C:\Users\zzgam\Downloads\tlee\artifacts\rose.ilk" /NOLOGO /LIBPATH:C:\Users\zzgam\Downloads\tlee\rose\keyauth d3d11.lib library_x64.lib ntdll.lib winhttp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='requireAdministrator' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\zzgam\Downloads\tlee\build\rose.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zzgam\Downloads\tlee\build\rose.lib" /MACHINE:X64 C:\Users\zzgam\Downloads\tlee\artifacts\clipper.engine.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\clipper.offset.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\clipper.rectclip.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_demo.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_draw.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_impl_dx11.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_impl_win32.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_tables.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\imgui_widgets.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\cache.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\typing_check.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\config.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\aimbot.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\esp.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\fly.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\freezeplayer.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\hitbox_expander.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\walkspeed.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\dex_explorer.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\silent.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\kill_crash_handler.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\utils.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\antidebug.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\keyauth_init.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\rescan.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\teleport.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\main.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\memory.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\notifications.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\render.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\sdk.obj
+  C:\Users\zzgam\Downloads\tlee\artifacts\luck.obj
+library_x64.lib(auth.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(auth.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(utils.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(utils.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(qr.png.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(qr.png.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(qrcode.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(qrcode.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(pingout.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+library_x64.lib(pingout.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+LINK : fatal error LNK1104: cannot open file 'atls.lib' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+Done Building Project "C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target(s)) -- FAILED.
+Done Building Project "C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+(PrepareForBuild target) -> 
+  C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory. [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+(ClCompile target) -> 
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(132,39): warning C4305: 'initializing': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(178,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(186,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(196,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(198,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,41): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(235,27): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(243,27): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(253,26): warning C4305: '-=': truncation from 'double' to 'float' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(255,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(472,54): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\esp\esp.cpp(476,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(539,173): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\features\explorer\dex_explorer.cpp(540,170): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+  C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(23,18): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(10,10): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(30,9): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\memory\memory.cpp(95,108): warning C4267: 'argument': conversion from 'size_t' to 'ULONG', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+  C:\Users\zzgam\Downloads\tlee\rose\src\render\render_helpers.h(319,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(229,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(465,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1194,174): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  C:\Users\zzgam\Downloads\tlee\rose\src\render\render.cpp(1196,171): warning C4244: 'argument': conversion from 'float' to 'ImDrawFlags', possible loss of data [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+
+"C:\Users\zzgam\Downloads\tlee\rose.sln" (Rebuild target) (1) ->
+"C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj" (Rebuild target) (2) ->
+(Link target) -> 
+  library_x64.lib(auth.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(auth.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(utils.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(utils.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(qr.png.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(qr.png.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(qrcode.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(qrcode.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(pingout.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  library_x64.lib(pingout.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in clipper.engine.obj [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+  LINK : fatal error LNK1104: cannot open file 'atls.lib' [C:\Users\zzgam\Downloads\tlee\rose\rose.vcxproj]
+
+    25 Warning(s)
+    11 Error(s)
+
+Time Elapsed 00:02:16.26

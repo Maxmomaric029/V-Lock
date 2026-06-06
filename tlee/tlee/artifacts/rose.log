@@ -1,0 +1,9 @@
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: The intermediate directory (C:\Users\zzgam\Downloads\tlee\tlee\artifacts\) contains files shared from another project (rose.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  antidebug.cpp
+  Generating code
+  173 of 6302 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    474 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  rose.vcxproj -> C:\Users\zzgam\Downloads\tlee\tlee\build\vertex.exe
