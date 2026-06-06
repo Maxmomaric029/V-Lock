@@ -20,8 +20,8 @@ namespace AutoRescan {
     extern std::atomic<int> consecutiveFailures;
     extern std::atomic<bool> inTransition;
     extern std::atomic<bool> memoryHealthy;
-    extern std::atomic<std::chrono::steady_clock::time_point> lastStateChange;
-    extern std::atomic<std::chrono::steady_clock::time_point> lastMemoryCheck;
+    extern std::atomic<int64_t> lastStateChange;
+    extern std::atomic<int64_t> lastMemoryCheck;
 }
 
 bool InitializeStorage();

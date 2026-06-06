@@ -488,13 +488,13 @@ namespace config
 				settings::visuals::weapon_icon = (value == "true");
 			if (parse_json_value(section, "weapon_icon_color", value))
 				parse_json_array(value, settings::visuals::weapon_icon_color, 4);
-			if (parse_json_value(section, "localplayer", value))
+				if (parse_json_value(section, "localplayer", value))
 				settings::visuals::localplayer = (value == "true");
-		if (parse_json_value(section, "highlights", value))
-			settings::visuals::highlights = (value == "true");
-		if (parse_json_value(section, "highlights_color", value))
-			parse_json_array(value, settings::visuals::highlights_color, 4);
-		if (parse_json_value(section, "healthbar", value))
+			if (parse_json_value(section, "highlights", value))
+				settings::visuals::highlights = (value == "true");
+			if (parse_json_value(section, "highlights_color", value))
+				parse_json_array(value, settings::visuals::highlights_color, 4);
+			if (parse_json_value(section, "healthbar", value))
 				settings::visuals::healthbar = (value == "true");
 			if (parse_json_value(section, "healthbar_color", value))
 				parse_json_array(value, settings::visuals::healthbar_color, 3);
