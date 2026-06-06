@@ -20,9 +20,16 @@ std::string rbx::nameable_t::get_class_name()
 	std::uint64_t class_descriptor = memory->read<std::uint64_t>(this->address + Offsets::Instance::ClassDescriptor);
 	std::uint64_t class_name = memory->read<std::uint64_t>(class_descriptor + Offsets::Instance::ClassName);
 
+	std::printf("\x1b[38;5;240m[DEBUG CLASSNAME] addr=0x%llx desc=0x%llx name_ptr=0x%llx\x1b[0m\n",
+		(unsigned long long)this->address,
+		(unsigned long long)class_descriptor,
+		(unsigned long long)class_name);
+
 	if (class_name)
 	{
-		return memory->read_string(class_name);
+		std::string result = memory->read_string(class_name);
+		std::printf("\x1b[38;5;240m[DEBUG CLASSNAME] result='%s'\x1b[0m\n", result.c_str());
+		return result;
 	}
 
 	return "unknown";
