@@ -6,184 +6,183 @@
 #include <cmath>
 #include <algorithm>
 
-void cache::run()
+// Inner function with no SEH — can safely use C++ objects with destructors
+static void cache_run_iteration()
 {
-	while (true)
+	// Retry resolving Players and LocalPlayer if they weren't ready during startup
+	std::uint64_t dm_addr = 0;
+	std::uint64_t players_addr = 0;
 	{
-		// Retry resolving Players and LocalPlayer if they weren't ready during startup
-		std::uint64_t dm_addr = 0;
-		std::uint64_t players_addr = 0;
+		std::shared_lock slock(game::game_state_mtx);
+		dm_addr = game::datamodel.address;
+		players_addr = game::players.address;
+	}
+	if (players_addr == 0 && dm_addr != 0)
+	{
+		rbx::instance_t dm_inst{ dm_addr };
+		auto players_inst = dm_inst.find_first_child_by_class("Players");
+		if (players_inst.address)
 		{
-			std::shared_lock slock(game::game_state_mtx);
-			dm_addr = game::datamodel.address;
-			players_addr = game::players.address;
-		}
-		if (players_addr == 0 && dm_addr != 0)
-		{
-			rbx::instance_t dm_inst{ dm_addr };
-			auto players_inst = dm_inst.find_first_child_by_class("Players");
-			if (players_inst.address)
+			{
+				std::unique_lock lock(game::game_state_mtx);
+				game::players = players_inst;
+			}
+
+			std::uint64_t local_player_addr = memory->read<std::uint64_t>(players_inst.address + Offsets::Player::LocalPlayer);
+			if (memory->is_valid_instance_address(local_player_addr))
 			{
 				{
 					std::unique_lock lock(game::game_state_mtx);
-					game::players = players_inst;
-				}
-
-				std::uint64_t local_player_addr = memory->read<std::uint64_t>(players_inst.address + Offsets::Player::LocalPlayer);
-				if (memory->is_valid_instance_address(local_player_addr))
-				{
-					{
-						std::unique_lock lock(game::game_state_mtx);
-						game::local_player = { local_player_addr };
-					}
+					game::local_player = { local_player_addr };
 				}
 			}
 		}
+	}
 
+	{
+		std::uint64_t lp_addr = 0;
 		{
-			std::uint64_t lp_addr = 0;
-			{
-				std::shared_lock slock(game::game_state_mtx);
-				lp_addr = game::local_player.address;
-			}
-			if (lp_addr != 0)
-			{
-				rbx::player_t local_player_obj{ lp_addr };
-				auto char_addr = local_player_obj.get_model_instance().address;
-				if (char_addr != 0)
-				{
-					std::unique_lock ulock(game::game_state_mtx);
-					game::local_character = { char_addr };
-				}
-			}
+			std::shared_lock slock(game::game_state_mtx);
+			lp_addr = game::local_player.address;
 		}
-
-		// Detect Game
-		if (dm_addr != 0)
+		if (lp_addr != 0)
 		{
-			game::place_id = memory->read<std::int64_t>(dm_addr + Offsets::DataModel::PlaceId);
-			
-			// Map popular games
-			static std::int64_t last_id = 0;
-			if (game::place_id != last_id)
+			rbx::player_t local_player_obj{ lp_addr };
+			auto char_addr = local_player_obj.get_model_instance().address;
+			if (char_addr != 0)
 			{
-				last_id = game::place_id;
-				switch (game::place_id)
-				{
-				case 606849621:   game::game_name = "Jailbreak"; break;
-				case 2753915549:  game::game_name = "Blox Fruits"; break;
-				case 920587237:   game::game_name = "Adopt Me"; break;
-				case 4924144171:  game::game_name = "Brookhaven"; break;
-				case 142823291:   game::game_name = "Murder Mystery 2"; break;
-				case 2788229376:  game::game_name = "Da Hood"; break;
-				case 160331737:   game::game_name = "Frontlines"; break;
-				case 6872265039:  game::game_name = "BedWars"; break;
-				case 155615604:   game::game_name = "Prison Life"; break;
-				case 2317712696:  game::game_name = "Wild West"; break;
-				case 3237341397:  game::game_name = "Pet Simulator X"; break;
-				case 1054526971:  game::game_name = "Blackhawk Rescue Mission 5"; break;
-				case 3351323050:  game::game_name = "Combat Warriors"; break;
-				case 1215132535:  game::game_name = "Mad City"; break;
-				case 2534724415:  game::game_name = "Emergency Response: Liberty County"; break;
-				default:          game::game_name = "Roblox (" + std::to_string(game::place_id) + ")"; break;
-				}
+				std::unique_lock ulock(game::game_state_mtx);
+				game::local_character = { char_addr };
 			}
 		}
+	}
 
-		std::vector<rbx::player_t> players = game::players.get_children<rbx::player_t>();
-
-		// === DIAGNÓSTICO: cuántos players encontró (solo 1 vez) ===
-		static bool cache_printed = false;
-		if (players.size() > 0 && !cache_printed) {
-			cache_printed = true;
-			printf("\x1b[38;5;118m   [CACHE] Found %zu players!\x1b[0m\n", players.size());
-			for (auto& p : players) {
-				printf("\x1b[38;5;118m   [CACHE]   player 0x%llx\x1b[0m\n", (unsigned long long)p.address);
-			}
-		}
-
-		std::vector<cache::entity_t> temp_cache;
+	// Detect Game
+	if (dm_addr != 0)
+	{
+		game::place_id = memory->read<std::int64_t>(dm_addr + Offsets::DataModel::PlaceId);
 		
-		for (rbx::player_t& player : players)
+		// Map popular games
+		static std::int64_t last_id = 0;
+		if (game::place_id != last_id)
 		{
-			cache::entity_t entity{};
-
-			entity.instance = { player.address };
-			entity.name = player.get_name();
-			entity.user_id = player.get_user_id();
-			entity.team_address = memory->read<std::uint64_t>(player.address + Offsets::Player::Team);
-			entity.team_name = "";
-			if (entity.team_address != 0)
+			last_id = game::place_id;
+			switch (game::place_id)
 			{
-				entity.team_name = rbx::instance_t{ entity.team_address }.get_name();
+			case 606849621:   game::game_name = "Jailbreak"; break;
+			case 2753915549:  game::game_name = "Blox Fruits"; break;
+			case 920587237:   game::game_name = "Adopt Me"; break;
+			case 4924144171:  game::game_name = "Brookhaven"; break;
+			case 142823291:   game::game_name = "Murder Mystery 2"; break;
+			case 2788229376:  game::game_name = "Da Hood"; break;
+			case 160331737:   game::game_name = "Frontlines"; break;
+			case 6872265039:  game::game_name = "BedWars"; break;
+			case 155615604:   game::game_name = "Prison Life"; break;
+			case 2317712696:  game::game_name = "Wild West"; break;
+			case 3237341397:  game::game_name = "Pet Simulator X"; break;
+			case 1054526971:  game::game_name = "Blackhawk Rescue Mission 5"; break;
+			case 3351323050:  game::game_name = "Combat Warriors"; break;
+			case 1215132535:  game::game_name = "Mad City"; break;
+			case 2534724415:  game::game_name = "Emergency Response: Liberty County"; break;
+			default:          game::game_name = "Roblox (" + std::to_string(game::place_id) + ")"; break;
 			}
-			
-			rbx::model_instance_t model_instance = player.get_model_instance();
-
-			for (rbx::part_t& part : model_instance.get_children<rbx::part_t>())
-			{
-				std::string part_class = part.get_class_name();
-				if (part_class.find("Part") != std::string::npos)
-				{
-					entity.parts[part.get_name()] = part;
-				}
-			}
-
-			entity.humanoid = { model_instance.find_first_child("Humanoid").address };
-			entity.rig_type = entity.humanoid.get_rig_type();
-			
-			// User detection check
-			entity.is_user = false;
-			if (entity.humanoid.address != 0)
-			{
-				float hip = entity.humanoid.get_hip_height();
-				// Secret signature check (2.01337)
-				if (std::abs(hip - 2.01337f) < 0.0001f)
-				{
-					entity.is_user = true;
-				}
-			}
-
-			rbx::instance_t backpack = player.find_first_child("Backpack");
-			rbx::instance_t character_model = { model_instance.address };
-			
-			entity.tool_name = "";
-			for (rbx::instance_t& child : character_model.get_children<rbx::instance_t>())
-			{
-				std::string child_class = child.get_class_name();
-				if (child_class == "Tool" || child_class == "HopperBin")
-				{
-					entity.tool_name = child.get_name();
-					break;
-				}
-			}
-
-			temp_cache.push_back(entity);
 		}
-		std::vector<cache::primitive_data_t> temp_primitives;
-		if (settings::aimbot::wall_check || settings::visuals::visible_check)
-		{
-			std::uint64_t world_addr = memory->read<std::uint64_t>(game::workspace.address + Offsets::Workspace::World);
-			if (world_addr)
-			{
-				std::uint64_t prim_start = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives);
-				std::uint64_t prim_end   = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives + 0x8);
-			
-			if (prim_start && prim_end && prim_end > prim_start)
-				{
-					std::uint64_t count = (prim_end - prim_start) / sizeof(std::uint64_t);
-					if (count > 4096) count = 4096;
+	}
 
-					std::unordered_map<std::uint64_t, bool> player_prim_addrs;
-					for (auto& ent : temp_cache)
+	std::vector<rbx::player_t> players = game::players.get_children<rbx::player_t>();
+
+	// === DIAGNÓSTICO: cuántos players encontró (solo 1 vez) ===
+	static bool cache_printed = false;
+	if (players.size() > 0 && !cache_printed) {
+		cache_printed = true;
+		printf("\x1b[38;5;118m   [CACHE] Found %zu players!\x1b[0m\n", players.size());
+		for (auto& p : players) {
+			printf("\x1b[38;5;118m   [CACHE]   player 0x%llx\x1b[0m\n", (unsigned long long)p.address);
+		}
+	}
+
+	std::vector<cache::entity_t> temp_cache;
+	
+	for (rbx::player_t& player : players)
+	{
+		cache::entity_t entity{};
+
+		entity.instance = { player.address };
+		entity.name = player.get_name();
+		entity.user_id = player.get_user_id();
+		entity.team_address = memory->read<std::uint64_t>(player.address + Offsets::Player::Team);
+		entity.team_name = "";
+		if (entity.team_address != 0)
+		{
+			entity.team_name = rbx::instance_t{ entity.team_address }.get_name();
+		}
+		
+		rbx::model_instance_t model_instance = player.get_model_instance();
+
+		for (rbx::part_t& part : model_instance.get_children<rbx::part_t>())
+		{
+			std::string part_class = part.get_class_name();
+			if (part_class.find("Part") != std::string::npos)
+			{
+				entity.parts[part.get_name()] = part;
+			}
+		}
+
+		entity.humanoid = { model_instance.find_first_child("Humanoid").address };
+		entity.rig_type = entity.humanoid.get_rig_type();
+		
+		// User detection check
+		entity.is_user = false;
+		if (entity.humanoid.address != 0)
+		{
+			float hip = entity.humanoid.get_hip_height();
+			// Secret signature check (2.01337)
+			if (std::abs(hip - 2.01337f) < 0.0001f)
+			{
+				entity.is_user = true;
+			}
+		}
+
+		rbx::instance_t backpack = player.find_first_child("Backpack");
+		rbx::instance_t character_model = { model_instance.address };
+		
+		entity.tool_name = "";
+		for (rbx::instance_t& child : character_model.get_children<rbx::instance_t>())
+		{
+			std::string child_class = child.get_class_name();
+			if (child_class == "Tool" || child_class == "HopperBin")
+			{
+				entity.tool_name = child.get_name();
+				break;
+			}
+		}
+
+		temp_cache.push_back(entity);
+	}
+	std::vector<cache::primitive_data_t> temp_primitives;
+	if (settings::aimbot::wall_check || settings::visuals::visible_check)
+	{
+		std::uint64_t world_addr = memory->read<std::uint64_t>(game::workspace.address + Offsets::Workspace::World);
+		if (world_addr)
+		{
+			std::uint64_t prim_start = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives);
+			std::uint64_t prim_end   = memory->read<std::uint64_t>(world_addr + Offsets::World::Primitives + 0x8);
+		
+		if (prim_start && prim_end && prim_end > prim_start)
+			{
+				std::uint64_t count = (prim_end - prim_start) / sizeof(std::uint64_t);
+				if (count > 4096) count = 4096;
+
+				std::unordered_map<std::uint64_t, bool> player_prim_addrs;
+				for (auto& ent : temp_cache)
+				{
+					for (auto& kv : ent.parts)
 					{
-						for (auto& kv : ent.parts)
-						{
-							if (!kv.second.address) continue;
-							std::uint64_t prim_addr = memory->read<std::uint64_t>(kv.second.address + Offsets::BasePart::Primitive);
-							if (prim_addr) player_prim_addrs[prim_addr] = true;
-						}
+						if (!kv.second.address) continue;
+						std::uint64_t prim_addr = memory->read<std::uint64_t>(kv.second.address + Offsets::BasePart::Primitive);
+						if (prim_addr) player_prim_addrs[prim_addr] = true;
 					}
+				}
 
 					for (std::uint64_t i = 0; i < count; ++i)
 					{
@@ -210,21 +209,34 @@ void cache::run()
 			}
 		}
 
+	{
+		std::lock_guard<std::recursive_mutex> lock(mtx);
+		cached_players = std::move(temp_cache);
+		cached_primitives = std::move(temp_primitives);
+		
+		for (cache::entity_t& entity : cached_players)
 		{
-			std::lock_guard<std::recursive_mutex> lock(mtx);
-			cached_players = std::move(temp_cache);
-			cached_primitives = std::move(temp_primitives);
-			
-			for (cache::entity_t& entity : cached_players)
+			if (entity.instance.address == game::local_player.address)
 			{
-				if (entity.instance.address == game::local_player.address)
-				{
-					cached_local_player = entity;
-					break;
-				}
+				cached_local_player = entity;
+				break;
 			}
 		}
+	}
+}
 
+void cache::run()
+{
+	while (true)
+	{
+		__try
+		{
+			cache_run_iteration();
+		}
+		__except (EXCEPTION_EXECUTE_HANDLER)
+		{
+			printf("\x1b[38;5;214m   [!] Cache thread recovered from exception\x1b[0m\n");
+		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }

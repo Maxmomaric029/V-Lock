@@ -12,8 +12,8 @@ Luck_ReadVirtualMemory
 	HANDLE ProcessHandle,
 	PVOID BaseAddress,
 	PVOID Buffer,
-	ULONG NumberOfBytesToRead,
-	PULONG NumberOfBytesRead
+	SIZE_T NumberOfBytesToRead,
+	PSIZE_T NumberOfBytesRead
 );
 
 extern "C" intptr_t
@@ -22,8 +22,8 @@ Luck_WriteVirtualMemory
 	HANDLE Processhandle,
 	PVOID BaseAddress,
 	PVOID Buffer,
-	ULONG NumberOfBytesToWrite,
-	PULONG NumberOfBytesWritten
+	SIZE_T NumberOfBytesToWrite,
+	PSIZE_T NumberOfBytesWritten
 );
 
 class memory_t final
@@ -96,8 +96,8 @@ T memory_t::read(uint64_t address)
 		return buffer;
 	}
 
-	ULONG bytes_read = 0;
-	Luck_ReadVirtualMemory(process_handle, reinterpret_cast<void*>(address), &buffer, static_cast<ULONG>(sizeof(T)), &bytes_read);
+	SIZE_T bytes_read = 0;
+	Luck_ReadVirtualMemory(process_handle, reinterpret_cast<void*>(address), &buffer, sizeof(T), &bytes_read);
 	
 	// Silently return 0 on failure — callers should check addresses before using
 	return buffer;
@@ -118,8 +118,8 @@ bool memory_t::write(uint64_t address, T value)
 		return false;
 	}
 
-	ULONG bytes_written = 0;
-	intptr_t result = Luck_WriteVirtualMemory(process_handle, reinterpret_cast<void*>(address), &value, static_cast<ULONG>(sizeof(T)), &bytes_written);
+	SIZE_T bytes_written = 0;
+	intptr_t result = Luck_WriteVirtualMemory(process_handle, reinterpret_cast<void*>(address), &value, sizeof(T), &bytes_written);
 	
 	return result != 0 && bytes_written == sizeof(T);
 }

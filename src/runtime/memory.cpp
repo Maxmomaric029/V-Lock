@@ -141,7 +141,7 @@ std::string memory_t::read_string(std::uint64_t address)
 	}
 
 	std::vector<char> buffer(static_cast<size_t>(string_length) + 1, 0);
-	ULONG bytes_read = 0;
+	SIZE_T bytes_read = 0;
 	intptr_t result = Luck_ReadVirtualMemory(process_handle, reinterpret_cast<void*>(string_address), buffer.data(), static_cast<ULONG>(buffer.size()), &bytes_read);
 	
 	if (result == 0 || bytes_read != static_cast<ULONG>(string_length) + 1)
