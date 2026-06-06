@@ -92,30 +92,6 @@ namespace {
 
 	std::vector<rbx::player_t> players = game::players.get_children<rbx::player_t>();
 
-	// === DIAGNÓSTICO: cuántos players encontró ===
-	static bool cache_printed = false;
-	if (players.size() > 0 && !cache_printed) {
-		cache_printed = true;
-		printf("\x1b[38;5;118m   [CACHE] Found %zu players!\x1b[0m\n", players.size());
-		for (auto& p : players) {
-			printf("\x1b[38;5;118m   [CACHE]   player 0x%llx\x1b[0m\n", (unsigned long long)p.address);
-		}
-	}
-	// DIAGNÓSTICO: si players está vacío cada 5s, muestra el estado de game::players
-	if (players.empty()) {
-		static int empty_counter = 0;
-		if (++empty_counter % 50 == 0) { // cada ~5s (100ms * 50)
-			printf("\x1b[38;5;214m   [CACHE] No players yet — game::players=0x%llx | lp=0x%llx\x1b[0m\n",
-				(unsigned long long)game::players.address,
-				(unsigned long long)game::local_player.address);
-			// Test: leer inline vector directo para ver si get_children falla
-			std::uint64_t v1 = memory->read<std::uint64_t>(game::players.address + Offsets::Instance::ChildrenStart);
-			std::uint64_t v2 = memory->read<std::uint64_t>(game::players.address + Offsets::Instance::ChildrenStart + Offsets::Instance::ChildrenEnd);
-			printf("\x1b[38;5;214m   [CACHE]   inline_vec[0x78]=0x%llx [0x80]=0x%llx\x1b[0m\n",
-				(unsigned long long)v1, (unsigned long long)v2);
-		}
-	}
-
 	std::vector<cache::entity_t> temp_cache;
 	
 	for (rbx::player_t& player : players)
