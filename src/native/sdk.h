@@ -123,10 +123,10 @@ std::vector<T> rbx::interface_t::get_children()
 	if (!addr)
 		return {};
 
-	// Scan this specific instance for its children vector offset (0x60 to 0x100)
+	// Scan this specific instance for its children vector offset (0x60 to 0x200)
 	// Different instance classes can have the vector at different offsets.
 	std::uint64_t cs = 0;
-	for (std::uint64_t off = 0x60; off < 0x100; off += 0x8)
+	for (std::uint64_t off = 0x60; off < 0x200; off += 0x8)
 	{
 		std::uint64_t b = memory->read<std::uint64_t>(addr + off);
 		std::uint64_t e = memory->read<std::uint64_t>(addr + off + 8);
@@ -135,7 +135,7 @@ std::vector<T> rbx::interface_t::get_children()
 		if (memory->is_valid_instance_address(b) && memory->is_valid_instance_address(e) && b <= e)
 		{
 			std::uint64_t count = (e - b) / 16;
-			if (count > 0 && count <= 4096)
+			if (count > 0 && count <= 2048)
 			{
 				// Confirm first child looks like a real instance (has a valid Name)
 				std::uint64_t first = memory->read<std::uint64_t>(b);
@@ -164,16 +164,15 @@ std::vector<T> rbx::interface_t::get_children()
 	std::uint64_t end   = (val1 < val2) ? val2 : val1;
 
 	std::uint64_t count = (end - begin) / 16;
-	if (count == 0 || count > 4096)
+	if (count == 0 || count > 2048)
 		return {};
 
 	std::vector<T> children;
 	children.reserve(static_cast<size_t>(count));
 
-	std::uint64_t iter_count = 0;
-	for (std::uint64_t ptr = begin; ptr < end && iter_count < 4096; ptr += 16, ++iter_count)
+	for (std::uint64_t i = 0; i < count; ++i)
 	{
-		std::uint64_t child_addr = memory->read<std::uint64_t>(ptr);
+		std::uint64_t child_addr = memory->read<std::uint64_t>(begin + i * 16);
 		if (memory->is_valid_instance_address(child_addr))
 			children.emplace_back(child_addr);
 	}
