@@ -89,104 +89,10 @@ void debugger_detection() {
 
         // trigger_seh_exception();  // Comentado: mata el proceso sin debugger en Windows 10/11
 
-        static const char* commonKernel32Functions[] =
-        {
-            "IsDebuggerPresent",
-            "EnumDeviceDrivers",
-            "CloseHandle",
-            "CheckRemoteDebuggerPresent",
-            "GetThreadContext",
-            "RaiseException",
-            "OutputDebugStringA",
-            "OutputDebugStringW",
-            "DebugBreak",
-            "CreateToolhelp32Snapshot",
-            "EnumWindows",
-            "FindWindow",
-            "GetTickCount",
-            "GetTickCount64",
-            "GetSystemTime",
-            "GetStartupInfo",
-            nullptr
-        };
-
-        static const char* commonNtDllFunctions[] =
-        {
-            "NtQueryInformationProcess",
-            "ZwQueryInformationProcess",
-            "NtSetInformationThread",
-            nullptr
-        };
-
-        static const char* commonWs2_32Functions[] =
-        {
-            "send",
-            "recv",
-            "connect",
-            "accept",
-            "bind",
-            "closesocket",
-            "WSAStartup",
-            "WSACleanup",
-            nullptr
-        };
-
-        static HMODULE kernel32_address{ GetModuleHandleA("kernel32.dll") };
-        static HMODULE ntdll_address{ GetModuleHandleA("ntdll.dll") };
-        static HMODULE ws2_32_address{ GetModuleHandleA("ws2_32.dll") };
-
-        constexpr std::uint8_t int3opcode = 0xCC;
-        constexpr std::uint16_t int3multi_byte_opcode = 0xCD03;
-        constexpr std::uint16_t undefined_opcode = 0x0F0B;
-
-
-        for (int i{}; commonKernel32Functions[i]; i++) {
-
-            void* functionPointer{ reinterpret_cast<void*>(GetProcAddress(kernel32_address, commonKernel32Functions[i])) };
-
-            if (!functionPointer)
-                continue;
-
-            if (*(std::uint8_t*)functionPointer == int3opcode ||
-                *(std::uint16_t*)functionPointer == int3multi_byte_opcode ||
-                *(std::uint16_t*)functionPointer == undefined_opcode)
-            {
-                terminate_process();
-                return;
-            }
-        }
-
-        for (int i{}; commonNtDllFunctions[i]; i++) {
-
-            void* function_pointer{ reinterpret_cast<void*>(GetProcAddress(ntdll_address, commonNtDllFunctions[i])) };
-
-            if (!function_pointer)
-                continue;
-
-            if (*(std::uint8_t*)function_pointer == int3opcode ||
-                *(std::uint16_t*)function_pointer == int3multi_byte_opcode ||
-                *(std::uint16_t*)function_pointer == undefined_opcode)
-            {
-                terminate_process();
-                return;
-            }
-        }
-
-        for (int i = 0; commonWs2_32Functions[i]; i++) {
-
-            void* functionPointer = reinterpret_cast<void*>(GetProcAddress(ws2_32_address, commonWs2_32Functions[i]));
-
-            if (!functionPointer)
-                continue;
-
-            if (*(std::uint8_t*)functionPointer == int3opcode ||
-                *(std::uint16_t*)functionPointer == int3multi_byte_opcode ||
-                *(std::uint16_t*)functionPointer == undefined_opcode)
-            {
-                terminate_process();
-                return;
-            }
-        }
+        // INT3 hook detection eliminado: causa falsos positivos con Windows Defender,
+        // antivirus y EDRs que ponen hooks legítimos en kernel32/ntdll/ws2_32.
+        // La detección real de debuggers (IsDebuggerPresent, PEB, NtGlobalFlag,
+        // debug registers, window enumeration) se mantiene intacta arriba.
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
