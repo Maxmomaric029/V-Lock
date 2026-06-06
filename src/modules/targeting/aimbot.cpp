@@ -24,7 +24,15 @@ static bool is_same_team(cache::entity_t& player)
 	std::uint64_t local_team  = cache::cached_local_player.team_address;
 	std::uint64_t target_team = player.team_address;
 
-	// Validate addresses before reading — null team means no team, not same team
+	// If BOTH have no team assigned (0), treat as same team (unassigned players)
+	if (local_team == 0 && target_team == 0)
+		return true;
+
+	// If only ONE has no team, they are on different teams
+	if ((local_team == 0) != (target_team == 0))
+		return false;
+
+	// Both have non-zero team addresses — validate before reading
 	if (!memory->is_valid_instance_address(local_team) || !memory->is_valid_instance_address(target_team))
 		return false;
 
@@ -92,6 +100,10 @@ static bool is_player_knocked(cache::entity_t& player)
 
 	rbx::instance_t ko = body_effects.find_first_child("K.O");
 	if (ko.address == 0)
+		return false;
+
+	// Defense: validate address before read
+	if (!memory->is_valid_instance_address(ko.address))
 		return false;
 
 	bool ko_value = memory->read<bool>(ko.address + Offsets::Misc::Value);
@@ -186,6 +198,10 @@ static rbx::part_t get_closest_part(cache::entity_t& player, const POINT& cursor
 {
 	rbx::part_t closest_part{};
 	float min_distance = FLT_MAX;
+
+	// Validate visengine address before accessing
+	if (!memory->is_valid_instance_address(game::visengine.address))
+		return closest_part;
 
 	math::vector2 dimensions = game::visengine.get_dimensions();
 	math::matrix4 view_matrix = game::visengine.get_viewmatrix();
