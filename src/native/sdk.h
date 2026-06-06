@@ -134,7 +134,7 @@ std::vector<T> rbx::interface_t::get_children()
 		// Both must be valid heap addresses, and begin must be <= end
 		if (memory->is_valid_instance_address(b) && memory->is_valid_instance_address(e) && b <= e)
 		{
-			std::uint64_t count = (e - b) / sizeof(std::uint64_t);
+			std::uint64_t count = (e - b) / 16;
 			if (count > 0 && count <= 4096)
 			{
 				// Confirm first child looks like a real instance (has a valid Name)
