@@ -120,24 +120,22 @@ std::vector<T> rbx::interface_t::get_children()
 {
 	rbx::instance_t* base = static_cast<rbx::instance_t*>(this);
 
-	// Instance + ChildrenStart (0x78) points to an internal container object
-	// The container stores the children vector:
-	//   container + 0x0 = children_begin (pointer to first child)
-	//   container + ChildrenEnd (0x8) = children_end (pointer after last child)
-	std::uint64_t container = memory->read<std::uint64_t>(base->address + Offsets::Instance::ChildrenStart);
+	// Read both pointers from the inline vector struct
+	// Roblox vector layout may have [end, begin] instead of [begin, end]
+	// So we read both values and use min() as begin, max() as end
+	std::uint64_t val1 = memory->read<std::uint64_t>(base->address + Offsets::Instance::ChildrenStart);
+	std::uint64_t val2 = memory->read<std::uint64_t>(base->address + Offsets::Instance::ChildrenStart + Offsets::Instance::ChildrenEnd);
 
-	// Validate container pointer is in heap range
-	if (!memory->is_valid_instance_address(container))
+	// Validate: both values must be in heap range (0x001... to 0x7FE...)
+	// Module addresses (0x7FFx...) would produce module-address entries, not instances.
+	if (!memory->is_valid_instance_address(val1) || !memory->is_valid_instance_address(val2))
 		return {};
 
-	std::uint64_t begin = memory->read<std::uint64_t>(container + 0);
-	std::uint64_t end   = memory->read<std::uint64_t>(container + Offsets::Instance::ChildrenEnd);
+	// Determine begin (smaller) and end (larger) regardless of field order
+	std::uint64_t begin = (val1 < val2) ? val1 : val2;
+	std::uint64_t end   = (val1 < val2) ? val2 : val1;
 
-	// Validate begin/end are in heap range
-	if (!memory->is_valid_instance_address(begin) || !memory->is_valid_instance_address(end))
-		return {};
-
-	// Sanity check: reasonable number of children
+	// Sanity check: cap at a reasonable max (4096 for general instances)
 	std::uint64_t count = (end - begin) / sizeof(std::uint64_t);
 	if (count == 0 || count > 4096)
 		return {};
