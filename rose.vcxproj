@@ -166,6 +166,7 @@
     <ClCompile Include="src\verify\typing_check.cpp" />
     <ClCompile Include="src\preferences\config.cpp" />
     <ClCompile Include="src\modules\targeting\aimbot.cpp" />
+    <ClCompile Include="src\modules\adapters\jailbreak.cpp" />
     <ClCompile Include="src\modules\markers\esp.cpp" />
     <ClCompile Include="src\modules\tweaks\fly.cpp" />
     <ClCompile Include="src\modules\tweaks\freezeplayer.cpp" />
