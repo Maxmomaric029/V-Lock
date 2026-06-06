@@ -193,7 +193,8 @@ static int main_impl()
 			continue;
 		}
 
-		// Now resolve Players and LocalPlayer (non-blocking - cache thread will retry)            auto players_inst = game::datamodel.find_first_child_by_class("Players");
+		// Now resolve Players and LocalPlayer — wait until they exist before proceeding
+			auto players_inst = game::datamodel.find_first_child_by_class("Players");
 		if (players_inst.address)
 		{
 			{
