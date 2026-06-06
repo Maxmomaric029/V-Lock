@@ -155,21 +155,30 @@ std::vector<T> rbx::interface_t::get_children()
 	if (cs == 0)
 		return {};
 
-	// Read begin/end from the discovered offset
-	std::uint64_t val1 = memory->read<std::uint64_t>(addr + cs);
-	std::uint64_t val2 = memory->read<std::uint64_t>(addr + cs + 8);
+	// Read the 3-field inline vector: [begin, end, capacity]
+	// Order can vary between instance classes, so sort to find true begin/end
+	std::uint64_t vals[3] = {
+		memory->read<std::uint64_t>(addr + cs),
+		memory->read<std::uint64_t>(addr + cs + 8),
+		memory->read<std::uint64_t>(addr + cs + 0x10)
+	};
 
-	// Safety: use min/max in case of [end, begin] layout
-	std::uint64_t begin = (val1 < val2) ? val1 : val2;
-	std::uint64_t end   = (val1 < val2) ? val2 : val1;
+	// Sort ascending so vals[0]=begin, vals[1]=end, vals[2]=capacity
+	if (vals[0] > vals[1]) std::swap(vals[0], vals[1]);
+	if (vals[0] > vals[2]) std::swap(vals[0], vals[2]);
+	if (vals[1] > vals[2]) std::swap(vals[1], vals[2]);
+
+	std::uint64_t begin = vals[0];
+	std::uint64_t end   = vals[1];
 
 	std::uint64_t count = (end - begin) / 16;
 	if (count == 0 || count > 2048)
 		return {};
 
-	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx count=%llu\x1b[0m\n",
+	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx cap=0x%llx count=%llu\x1b[0m\n",
 		(unsigned long long)begin,
-		(unsigned long long)end,
+		(unsigned long long)vals[1],
+		(unsigned long long)vals[2],
 		(unsigned long long)count);
 
 	std::vector<T> children;
