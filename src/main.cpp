@@ -56,7 +56,8 @@ std::int32_t main()
     GetConsoleMode(hConsole, &mode);
     SetConsoleMode(hConsole, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING); // Enable ANSI codes
 
-	system("cls");
+	// Clear console without spawning a cmd.exe child process
+	printf("\x1b[2J\x1b[H");
 
     // Futuristic Logo
     printf("\x1b[38;5;45m");
