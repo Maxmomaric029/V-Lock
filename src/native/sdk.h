@@ -153,7 +153,6 @@ std::vector<T> rbx::interface_t::get_children()
 			cs = off;
 			break;
 		}
-		}
 	}
 
 	if (cs == 0)
