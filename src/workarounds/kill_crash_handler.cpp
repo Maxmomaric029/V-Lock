@@ -42,9 +42,6 @@ void rbx::bypass::kill_other_crash_handlers()
 
 void rbx::bypass::run()
 {
-	// First call outside __try to ensure initial cleanup
-	kill_other_crash_handlers();
-
 	for (;;)
 	{
 		__try
