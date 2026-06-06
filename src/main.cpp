@@ -194,6 +194,15 @@ static int main_impl()
 		}
 
 		// Now resolve Players and LocalPlayer — wait until they exist before proceeding
+		{
+			// DIAGNÓSTICO: cuántos hijos tiene DataModel ahora
+			auto dm_children = game::datamodel.get_children();
+			printf("\x1b[38;5;240m[DM %zu kids]\x1b[0m", dm_children.size());
+			fflush(stdout);
+			for (auto& c : dm_children) {
+				printf("\x1b[38;5;240m%s\x1b[0m ", c.get_class_name().c_str());
+			}
+		}
 			auto players_inst = game::datamodel.find_first_child_by_class("Players");
 		if (players_inst.address)
 		{
