@@ -3,6 +3,7 @@
 #include <thread>
 #include <string>
 #include <cstdio>
+#include <conio.h>
 #include <Windows.h>
 
 #include <runtime/memory.h>
