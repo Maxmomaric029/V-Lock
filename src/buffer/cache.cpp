@@ -7,8 +7,9 @@
 #include <algorithm>
 
 // Inner function with no SEH — can safely use C++ objects with destructors
-static void cache_run_iteration()
-{
+namespace {
+	void cache_run_iteration()
+	{
 	// Retry resolving Players and LocalPlayer if they weren't ready during startup
 	std::uint64_t dm_addr = 0;
 	std::uint64_t players_addr = 0;
@@ -210,19 +211,20 @@ static void cache_run_iteration()
 		}
 
 	{
-		std::lock_guard<std::recursive_mutex> lock(mtx);
-		cached_players = std::move(temp_cache);
-		cached_primitives = std::move(temp_primitives);
+		std::lock_guard<std::recursive_mutex> lock(cache::mtx);
+		cache::cached_players = std::move(temp_cache);
+		cache::cached_primitives = std::move(temp_primitives);
 		
-		for (cache::entity_t& entity : cached_players)
+		for (cache::entity_t& entity : cache::cached_players)
 		{
 			if (entity.instance.address == game::local_player.address)
 			{
-				cached_local_player = entity;
+				cache::cached_local_player = entity;
 				break;
 			}
 		}
 	}
+}
 }
 
 void cache::run()
