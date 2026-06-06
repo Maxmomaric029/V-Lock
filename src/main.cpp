@@ -193,8 +193,7 @@ static int main_impl()
 			continue;
 		}
 
-		// Now resolve Players and LocalPlayer (non-blocking - cache thread will retry)
-		auto players_inst = game::datamodel.find_first_child_by_class("Players");
+		// Now resolve Players and LocalPlayer (non-blocking - cache thread will retry)            auto players_inst = game::datamodel.find_first_child_by_class("Players");
 		if (players_inst.address)
 		{
 			{
@@ -223,7 +222,10 @@ static int main_impl()
 		}
 		else
 		{
-			printf("\x1b[38;5;240mp\x1b[0m"); // gray p = Players not yet available (cache thread will retry)
+			printf("\x1b[38;5;240mp\x1b[0m"); // gray p = Players not yet available
+			fflush(stdout);
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			continue; // Wait for Players to be added to DataModel before proceeding
 		}
 		fflush(stdout);
 
