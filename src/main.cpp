@@ -37,10 +37,8 @@ LRESULT CALLBACK ConsoleWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
     return CallWindowProc(oldWndProc, hwnd, uMsg, wParam, lParam);
 }
 
-std::int32_t main()
+static int main_impl()
 {
-	__try
-	{
 	std::thread(rbx::bypass::run).detach();
 
 	// Using hardcoded offsets from offsets.h directly
@@ -384,6 +382,13 @@ std::int32_t main()
 
 	printf("\x1b[38;5;45m   [+] Render loop stopped cleanly.\x1b[0m\n");
 	return 0;
+}
+
+std::int32_t main()
+{
+	__try
+	{
+		return main_impl();
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
