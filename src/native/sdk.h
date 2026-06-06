@@ -163,7 +163,7 @@ std::vector<T> rbx::interface_t::get_children()
 	std::uint64_t begin = (val1 < val2) ? val1 : val2;
 	std::uint64_t end   = (val1 < val2) ? val2 : val1;
 
-	std::uint64_t count = (end - begin) / sizeof(std::uint64_t);
+	std::uint64_t count = (end - begin) / 16;
 	if (count == 0 || count > 4096)
 		return {};
 
@@ -171,7 +171,7 @@ std::vector<T> rbx::interface_t::get_children()
 	children.reserve(static_cast<size_t>(count));
 
 	std::uint64_t iter_count = 0;
-	for (std::uint64_t ptr = begin; ptr < end && iter_count < 4096; ptr += sizeof(std::uint64_t), ++iter_count)
+	for (std::uint64_t ptr = begin; ptr < end && iter_count < 4096; ptr += 16, ++iter_count)
 	{
 		std::uint64_t child_addr = memory->read<std::uint64_t>(ptr);
 		if (memory->is_valid_instance_address(child_addr))
