@@ -137,12 +137,7 @@ std::vector<T> rbx::interface_t::get_children()
 	if (!memory->is_valid_instance_address(begin) || !memory->is_valid_instance_address(end))
 		return {};
 
-	// Sanity check: reasonable number of children (DataModel typically has 3-10)
-	std::uint64_t count = (end - begin) / sizeof(std::uint64_t);
-	if (count == 0 || count > 256)
-		return {};
-
-	// Sanity check: cap at a reasonable max (4096 for general instances)
+	// Sanity check: cap at a reasonable max (4096 for general instances, 100 for players)
 	std::uint64_t count = (end - begin) / sizeof(std::uint64_t);
 	if (count == 0 || count > 4096)
 		return {};
