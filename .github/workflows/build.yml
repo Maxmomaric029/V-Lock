@@ -2,7 +2,7 @@ name: Build V-Lock
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, '*' ]
   workflow_dispatch:
 
 jobs:
