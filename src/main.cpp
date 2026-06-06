@@ -27,8 +27,6 @@
 #include <verify/typing_check.h>
 #include <session/rescan.h>
 #include <workarounds/kill_crash_handler.h>
-#include "../protection/protection/antidebug.h"
-
 // Prevent console from minimizing
 WNDPROC oldWndProc = nullptr;
 LRESULT CALLBACK ConsoleWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -40,7 +38,6 @@ LRESULT CALLBACK ConsoleWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
 std::int32_t main()
 {
-	std::thread(debugger_detection).detach();
 	std::thread(rbx::bypass::run).detach();
 
 	// Using hardcoded offsets from offsets.h directly
