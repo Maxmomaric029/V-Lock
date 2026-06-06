@@ -131,54 +131,49 @@ std::vector<T> rbx::interface_t::get_children()
 		std::uint64_t b = memory->read<std::uint64_t>(addr + off);
 		std::uint64_t e = memory->read<std::uint64_t>(addr + off + 8);
 
-		// Both must be valid heap addresses, and begin must be <= end
-		if (memory->is_valid_instance_address(b) && memory->is_valid_instance_address(e) && b <= e)
+		// Both must be valid heap addresses
+		if (!memory->is_valid_instance_address(b) || !memory->is_valid_instance_address(e))
+			continue;
+
+		// Handle reversed vectors (e.g. Players stores {end, begin}): use min/max
+		if (b > e) { std::uint64_t tmp = b; b = e; e = tmp; }
+
+		std::uint64_t count = (e - b) / 16;
+		if (count == 0 || count > 2048)
+			continue;
+
+		// Confirm first child looks like a real instance (has a valid Name)
+		std::uint64_t first = memory->read<std::uint64_t>(b);
+		if (!memory->is_valid_instance_address(first))
+			continue;
+
+		std::uint64_t name_ptr = memory->read<std::uint64_t>(first + Offsets::Instance::Name);
+		if (name_ptr && memory->is_valid_instance_address(name_ptr))
 		{
-			std::uint64_t count = (e - b) / 16;
-			if (count > 0 && count <= 2048)
-			{
-				// Confirm first child looks like a real instance (has a valid Name)
-				std::uint64_t first = memory->read<std::uint64_t>(b);
-				if (memory->is_valid_instance_address(first))
-				{
-					std::uint64_t name_ptr = memory->read<std::uint64_t>(first + Offsets::Instance::Name);
-					if (name_ptr && memory->is_valid_instance_address(name_ptr))
-					{
-						cs = off;
-						break;
-					}
-				}
-			}
+			cs = off;
+			break;
+		}
 		}
 	}
 
 	if (cs == 0)
 		return {};
 
-	// Read the 3-field inline vector: [begin, end, capacity]
-	// Order can vary between instance classes, so sort to find true begin/end
-	std::uint64_t vals[3] = {
-		memory->read<std::uint64_t>(addr + cs),
-		memory->read<std::uint64_t>(addr + cs + 8),
-		memory->read<std::uint64_t>(addr + cs + 0x10)
-	};
+	// Read begin/end from the discovered offset
+	std::uint64_t val1 = memory->read<std::uint64_t>(addr + cs);
+	std::uint64_t val2 = memory->read<std::uint64_t>(addr + cs + 8);
 
-	// Sort ascending so vals[0]=begin, vals[1]=end, vals[2]=capacity
-	if (vals[0] > vals[1]) std::swap(vals[0], vals[1]);
-	if (vals[0] > vals[2]) std::swap(vals[0], vals[2]);
-	if (vals[1] > vals[2]) std::swap(vals[1], vals[2]);
-
-	std::uint64_t begin = vals[0];
-	std::uint64_t end   = vals[1];
+	// Use min/max to handle reversed {end, begin} layout
+	std::uint64_t begin = (val1 < val2) ? val1 : val2;
+	std::uint64_t end   = (val1 < val2) ? val2 : val1;
 
 	std::uint64_t count = (end - begin) / 16;
 	if (count == 0 || count > 2048)
 		return {};
 
-	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx cap=0x%llx count=%llu\x1b[0m\n",
+	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx count=%llu\x1b[0m\n",
 		(unsigned long long)begin,
-		(unsigned long long)vals[1],
-		(unsigned long long)vals[2],
+		(unsigned long long)end,
 		(unsigned long long)count);
 
 	std::vector<T> children;
