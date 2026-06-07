@@ -147,6 +147,11 @@ std::vector<T> rbx::interface_t::get_children()
 		if (!memory->is_valid_instance_address(first))
 			continue;
 
+		// ClassDescriptor must fall in the Roblox module range, not garbage
+		std::uint64_t desc = memory->read<std::uint64_t>(first + Offsets::Instance::ClassDescriptor);
+		if (desc < 0x7ff700000000ULL || desc >= 0x7fff00000000ULL)
+			continue;
+
 		std::uint64_t name_ptr = memory->read<std::uint64_t>(first + Offsets::Instance::Name);
 		if (name_ptr && memory->is_valid_instance_address(name_ptr))
 		{
