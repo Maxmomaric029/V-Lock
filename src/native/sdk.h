@@ -119,67 +119,46 @@ template <typename T>
 std::vector<T> rbx::interface_t::get_children()
 {
 	rbx::instance_t* base = static_cast<rbx::instance_t*>(this);
-	std::uint64_t addr = base->address;
-	if (!addr)
-		return {};
 
-	// Scan this specific instance for its children vector offset (0x60 to 0x200)
-	// Different instance classes can have the vector at different offsets.
+	// Scan per-instance for the children vector offset
 	std::uint64_t cs = 0;
-	for (std::uint64_t off = 0x60; off < 0x200; off += 0x8)
+	for (std::uint64_t off = 0x60; off < 0x300; off += 0x8)
 	{
-		std::uint64_t b = memory->read<std::uint64_t>(addr + off);
-		std::uint64_t e = memory->read<std::uint64_t>(addr + off + 8);
+		std::uint64_t b = memory->read<std::uint64_t>(base->address + off);
+		std::uint64_t e = memory->read<std::uint64_t>(base->address + off + 0x8);
 
-		// Both must be valid heap addresses
 		if (!memory->is_valid_instance_address(b) || !memory->is_valid_instance_address(e))
 			continue;
 
-		// Handle reversed vectors (e.g. Players stores {end, begin}): use min/max
-		if (b > e) { std::uint64_t tmp = b; b = e; e = tmp; }
+		if (b > e) std::swap(b, e);
 
 		std::uint64_t count = (e - b) / 16;
 		if (count == 0 || count > 2048)
 			continue;
 
-		// Confirm first child looks like a real instance (has a valid Name)
+		// Validar que el primer hijo tenga ClassDescriptor en rango del módulo
 		std::uint64_t first = memory->read<std::uint64_t>(b);
 		if (!memory->is_valid_instance_address(first))
 			continue;
 
-		// ClassDescriptor must fall within the Roblox module (not garbage like 0xb)
 		std::uint64_t desc = memory->read<std::uint64_t>(first + Offsets::Instance::ClassDescriptor);
-		std::uint64_t module_base = memory->get_module_address();
-		if (desc < module_base || desc >= module_base + 0x20000000ULL)
+		// ClassDescriptor real apunta al módulo de Roblox (0x7ff7... - 0x7fff...)
+		if (desc < 0x7ff000000000ULL || desc > 0x7fffffffffffULL)
 			continue;
 
-		std::uint64_t name_ptr = memory->read<std::uint64_t>(first + Offsets::Instance::Name);
-		if (name_ptr && memory->is_valid_instance_address(name_ptr))
-		{
-			cs = off;
-			break;
-		}
+		cs = off;
+		break;
 	}
 
-	if (cs == 0)
-		return {};
+	if (cs == 0) return {};
 
-	// Read begin/end from the discovered offset
-	std::uint64_t val1 = memory->read<std::uint64_t>(addr + cs);
-	std::uint64_t val2 = memory->read<std::uint64_t>(addr + cs + 8);
-
-	// Use min/max to handle reversed {end, begin} layout
-	std::uint64_t begin = (val1 < val2) ? val1 : val2;
-	std::uint64_t end   = (val1 < val2) ? val2 : val1;
+	std::uint64_t v1 = memory->read<std::uint64_t>(base->address + cs);
+	std::uint64_t v2 = memory->read<std::uint64_t>(base->address + cs + 0x8);
+	std::uint64_t begin = (v1 < v2) ? v1 : v2;
+	std::uint64_t end   = (v1 < v2) ? v2 : v1;
 
 	std::uint64_t count = (end - begin) / 16;
-	if (count == 0 || count > 2048)
-		return {};
-
-	std::printf("\x1b[38;5;240m[DEBUG CHILDREN] begin=0x%llx end=0x%llx count=%llu\x1b[0m\n",
-		(unsigned long long)begin,
-		(unsigned long long)end,
-		(unsigned long long)count);
+	if (count == 0 || count > 2048) return {};
 
 	std::vector<T> children;
 	children.reserve(static_cast<size_t>(count));
