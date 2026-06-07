@@ -142,7 +142,7 @@ std::vector<T> rbx::interface_t::get_children()
 			continue;
 
 		std::uint64_t desc = memory->read<std::uint64_t>(first + Offsets::Instance::ClassDescriptor);
-		// ClassDescriptor real apunta al módulo de Roblox (0x7ff7... - 0x7fff...)
+		// ClassDescriptor real apunta al módulo de Roblox (0x7ff0... - 0x7fff...)
 		if (desc < 0x7ff000000000ULL || desc > 0x7fffffffffffULL)
 			continue;
 
