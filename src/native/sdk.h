@@ -146,6 +146,15 @@ std::vector<T> rbx::interface_t::get_children()
 		if (desc < 0x7ff000000000ULL || desc > 0x7fffffffffffULL)
 			continue;
 
+		// DEBUG: log every passing candidate
+		std::printf("\x1b[38;5;240m[SCAN OK] off=0x%llx b=0x%llx e=0x%llx count=%llu first=0x%llx desc=0x%llx\x1b[0m\n",
+			(unsigned long long)off,
+			(unsigned long long)b,
+			(unsigned long long)e,
+			(unsigned long long)count,
+			(unsigned long long)first,
+			(unsigned long long)desc);
+
 		cs = off;
 		break;
 	}
