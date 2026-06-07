@@ -149,6 +149,10 @@ std::vector<T> rbx::interface_t::get_children()
 
 		// ClassDescriptor must fall in the Roblox module range, not garbage
 		std::uint64_t desc = memory->read<std::uint64_t>(first + Offsets::Instance::ClassDescriptor);
+		std::printf("\x1b[38;5;240m[SCAN DESC] off=0x%llx first=0x%llx desc=0x%llx\x1b[0m\n",
+			(unsigned long long)off,
+			(unsigned long long)first,
+			(unsigned long long)desc);
 		if (desc < 0x7ff700000000ULL || desc >= 0x7fff00000000ULL)
 			continue;
 
